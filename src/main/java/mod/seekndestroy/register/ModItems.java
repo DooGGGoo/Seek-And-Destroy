@@ -1,6 +1,7 @@
-package mod.seekndestroy.items;
+package mod.seekndestroy.register;
 
 import mod.seekndestroy.SeekAndDestroy;
+import mod.seekndestroy.item.GunItem;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
@@ -13,14 +14,23 @@ public class ModItems
 {
     public static final Item TEST_ITEM = registerItem("test_item", new Item(new Item.Settings()));
 
+    public static final Item GUN_TEST = registerItem("gun_test", new GunItem(new Item.Settings()
+            .maxCount(1),
+            10,
+            3F,
+            2F,
+            true
+    ));
+
     private static void addToItemGroup(FabricItemGroupEntries entries)
     {
         entries.add(TEST_ITEM);
+        entries.add(GUN_TEST);
     }
 
-    private static Item registerItem(String name, Item item)
+    public static <T extends Item> T registerItem(String name, T item)
     {
-        return Registry.register(Registries.ITEM, Identifier.of(SeekAndDestroy.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, SeekAndDestroy.ID(name), item);
     }
 
     public static void registerModItems()

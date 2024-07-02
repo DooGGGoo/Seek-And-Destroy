@@ -1,3 +1,6 @@
 {
-  "item.seekndestroy.test_item": "Test item"
+  "item.seekndestroy.test_item": "Test item",
+  "item.seekndestroy.gun_test": "Test gun",
+
+  "itemGroup.seekndestroy.main_group": "Seek And Destroy"
 }
