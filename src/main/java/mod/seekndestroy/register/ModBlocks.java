@@ -1,6 +1,7 @@
 package mod.seekndestroy.register;
 
 import mod.seekndestroy.SeekAndDestroy;
+import mod.seekndestroy.block.*;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -11,7 +12,12 @@ import net.minecraft.registry.Registry;
 
 public class ModBlocks
 {
-	public static final Block TEST_BLOCK = registerBlockWithItem("test_block", new Block(AbstractBlock.Settings.copy(Blocks.STONE)));
+	public static final Block TEST_BLOCK = registerBlockWithItem("test_block",
+			new Block(AbstractBlock.Settings.copy(Blocks.STONE)));
+
+	public static final Block GROUND_RADAR = registerBlockWithItem("ground_radar",
+			new GroundRadarBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)
+					.nonOpaque()));
 
 	public static <T extends Block> T registerBlock(final String name, final T block)
 	{

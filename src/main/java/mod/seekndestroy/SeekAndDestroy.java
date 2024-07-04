@@ -1,5 +1,6 @@
 package mod.seekndestroy;
 
+import mod.seekndestroy.register.ModBlockEntities;
 import mod.seekndestroy.register.ModBlocks;
 import mod.seekndestroy.register.ModItemGroups;
 import mod.seekndestroy.register.ModItems;
@@ -20,6 +21,7 @@ public class SeekAndDestroy implements ModInitializer
         ModItemGroups.registerItemGroups();
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
+		ModBlockEntities.registerModBlockEntities();
 
 		LOGGER.info("Hello Fabric world!");
 	}

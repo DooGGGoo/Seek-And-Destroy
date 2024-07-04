@@ -1,22 +1,34 @@
 package mod.seekndestroy.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
+
+import com.mojang.serialization.MapCodec;
+import mod.seekndestroy.block.entity.GroundRadarBlockEntity;
+import net.minecraft.block.*;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class GroundRadarBlock extends BlockEntity implements BlockEntityProvider
+public class GroundRadarBlock extends BlockWithEntity implements BlockEntityProvider
 {
-	private static final VoxelShape VOXEL_SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
+	private static final VoxelShape VOXEL_SHAPE =  Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
 
-	public GroundRadarBlock(BlockEntityType<?> type, BlockPos pos, BlockState state)
+	public GroundRadarBlock(Settings settings)
 	{
-		super(type, pos, state);
+		super(settings);
+	}
+
+	@Override
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context)
+	{
+		return VOXEL_SHAPE;
 	}
 
 	@Override
@@ -28,6 +40,12 @@ public class GroundRadarBlock extends BlockEntity implements BlockEntityProvider
 	@Nullable
 	@Override
 	public BlockEntity createBlockEntity(BlockPos pos, BlockState state)
+	{
+		return new GroundRadarBlockEntity(pos, state);
+	}
+
+	@Override
+	protected MapCodec<? extends BlockWithEntity> getCodec()
 	{
 		return null;
 	}

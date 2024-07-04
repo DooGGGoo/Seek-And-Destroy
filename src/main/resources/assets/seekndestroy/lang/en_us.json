@@ -2,5 +2,7 @@
   "item.seekndestroy.test_item": "Test item",
   "item.seekndestroy.gun_test": "Test gun",
 
+  "block.seekndestroy.ground_radar": "Ground Radar",
+
   "itemGroup.seekndestroy.main_group": "Seek And Destroy"
 }

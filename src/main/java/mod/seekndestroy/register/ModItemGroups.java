@@ -15,8 +15,13 @@ public class ModItemGroups
             .icon(() -> new ItemStack(ModItems.TEST_ITEM))
             .displayName(Text.translatable("itemGroup.seekndestroy.main_group"))
             .entries((context, entries) -> {
+
                 entries.add(ModItems.TEST_ITEM);
                 entries.add(ModItems.GUN_TEST);
+
+                entries.add(ModBlocks.TEST_BLOCK);
+                entries.add(ModBlocks.GROUND_RADAR);
+
             })
             .build();
 
