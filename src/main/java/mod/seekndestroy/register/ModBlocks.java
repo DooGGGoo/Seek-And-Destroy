@@ -19,6 +19,7 @@ public class ModBlocks
 			new GroundRadarBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)
 					.nonOpaque()));
 
+
 	public static <T extends Block> T registerBlock(final String name, final T block)
 	{
 		return Registry.register(Registries.BLOCK, SeekAndDestroy.ID(name), block);
