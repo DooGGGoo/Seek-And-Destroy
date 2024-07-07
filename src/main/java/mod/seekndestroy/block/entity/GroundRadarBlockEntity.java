@@ -81,6 +81,8 @@ public class GroundRadarBlockEntity extends BlockEntity
 		}
 	}
 
+	// TODO: This can be made into separate interface
+	// TODO: Add interface and target display
 	private static void tickRadar(World world, BlockPos pos, GroundRadarBlockEntity groundRadarBlockEntity)
 	{
 		groundRadarBlockEntity.progress += groundRadarBlockEntity.scanRate;
@@ -93,7 +95,7 @@ public class GroundRadarBlockEntity extends BlockEntity
 
 		Vec3d radarDirection = MathUtils.intToDirectionVector(groundRadarBlockEntity.progress);
 
-		// spawn particle at direction
+		// spawn particle in search direction
 		world.addImportantParticle(ParticleTypes.FLAME, pos.getX() + 0.5f + radarDirection.getX() * 2f, pos.getY() + 1f, pos.getZ() + 0.5f + radarDirection.getZ() * 2f, 0.0, 0.0, 0.0);
 
 		final Box scanBox = new Box(pos).offset(0, -10, 0)
