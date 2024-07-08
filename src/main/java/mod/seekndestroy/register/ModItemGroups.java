@@ -17,7 +17,7 @@ public class ModItemGroups
             .entries((context, entries) -> {
 
                 entries.add(ModItems.TEST_ITEM);
-                entries.add(ModItems.GUN_TEST);
+                entries.add(ModItems.TEST_GUN);
 
                 entries.add(ModBlocks.TEST_BLOCK);
                 entries.add(ModBlocks.GROUND_RADAR);

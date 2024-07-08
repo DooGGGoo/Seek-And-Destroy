@@ -5,10 +5,12 @@ import net.minecraft.component.ComponentChanges;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class GunMagazineItem extends Item {
+public class GunMagazineItem extends Item
+{
 	private final int maxRounds;
 
-	public GunMagazineItem(Settings settings, int maxRounds) {
+	public GunMagazineItem(Settings settings, int maxRounds)
+	{
 		super(settings.maxCount(1));
 		this.maxRounds = maxRounds;
 	}

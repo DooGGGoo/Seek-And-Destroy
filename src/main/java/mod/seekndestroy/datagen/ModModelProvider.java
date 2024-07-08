@@ -27,6 +27,7 @@ public class ModModelProvider extends FabricModelProvider
 	public void generateItemModels(ItemModelGenerator itemModelGenerator)
 	{
 		itemModelGenerator.register(ModItems.TEST_ITEM, Models.GENERATED);
-		itemModelGenerator.register(ModItems.GUN_TEST, Models.HANDHELD);
+		itemModelGenerator.register(ModItems.TEST_GUN, Models.HANDHELD);
+		itemModelGenerator.register(ModItems.TEST_MAG, Models.GENERATED);
 	}
 }
