@@ -1,9 +1,6 @@
 package mod.seekndestroy;
 
-import mod.seekndestroy.register.ModBlockEntities;
-import mod.seekndestroy.register.ModBlocks;
-import mod.seekndestroy.register.ModItemGroups;
-import mod.seekndestroy.register.ModItems;
+import mod.seekndestroy.register.*;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.util.Identifier;
@@ -18,6 +15,7 @@ public class SeekAndDestroy implements ModInitializer
 	@Override
 	public void onInitialize()
 	{
+		ModComponents.registerModComponents();
         ModItemGroups.registerItemGroups();
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();

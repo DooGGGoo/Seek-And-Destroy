@@ -14,18 +14,18 @@ public class ModItems
 {
     public static final Item TEST_ITEM = registerItem("test_item", new Item(new Item.Settings()));
 
-    public static final Item GUN_TEST = registerItem("gun_test", new GunItem(new Item.Settings()
-            .maxCount(1),
-            10,
-            3F,
-            2F,
-            true
-    ));
+//    public static final Item GUN_TEST = registerItem("gun_test", new GunItem(new Item.Settings()
+//            .maxCount(1),
+//            10,
+//            3F,
+//            2F,
+//            true
+//    ));
 
     private static void addToItemGroup(FabricItemGroupEntries entries)
     {
         entries.add(TEST_ITEM);
-        entries.add(GUN_TEST);
+//        entries.add(GUN_TEST);
     }
 
     public static <T extends Item> T registerItem(String name, T item)

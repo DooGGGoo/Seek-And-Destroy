@@ -37,8 +37,5 @@ public class ModBlocks
 		return registerBlockWithItem(name, block, new Item.Settings());
 	}
 
-	public static void registerModBlocks()
-	{
-
-	}
+	public static void registerModBlocks() { }
 }

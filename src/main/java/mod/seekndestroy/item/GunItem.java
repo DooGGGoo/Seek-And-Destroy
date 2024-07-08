@@ -1,81 +1,79 @@
 package mod.seekndestroy.item;
 
-import net.minecraft.component.DataComponentTypes;
+
+import net.fabricmc.fabric.api.item.v1.FabricItem;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
-import java.util.List;
 
-public class GunItem extends Item
+public class GunItem extends Item implements FabricItem
 {
-    private final int maxAmmo;
-    private final float damage;
-    private final float cooldown;
-    private final boolean requiresTwoHands;
-    private int currentAmmo;
+	private final float recoil;
+	private final SoundEvent  fireSound;
 
-    public GunItem(Settings settings, int maxAmmo, float damage, float cooldown, boolean requiresTwoHands)
-    {
-        super(settings);
-        this.maxAmmo = maxAmmo;
-        this.damage = damage;
-        this.cooldown = cooldown;
-        this.requiresTwoHands = requiresTwoHands;
-        this.currentAmmo = maxAmmo;
-    }
+	public GunItem(Item.Settings settings, GunConfig gunConfig)
+	{
+		super(settings.maxCount(1));
 
-    @Override
-    public void appendTooltip(ItemStack itemStack, Item.TooltipContext context, List<Text> tooltip, TooltipType options)
-    {
-        tooltip.add(Text.translatable("Ammo: " + currentAmmo + "/" + maxAmmo));
-    }
+		this.recoil = gunConfig.recoil;
+		this.fireSound = gunConfig.fireSound;
+	}
 
-    @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand)
-    {
-        if (world.isClient())
-        {
-            return TypedActionResult.success(user.getStackInHand(hand));
-        }
+	@Override
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand)
+	{
+		ItemStack stack = user.getStackInHand(hand);
 
-        ItemStack stackInHand = user.getStackInHand(hand);
+		if (hand == Hand.OFF_HAND)
+		{
+			return TypedActionResult.pass(stack);
+		}
 
-        if (currentAmmo <= 0)
-        {
-            return TypedActionResult.fail(stackInHand);
-        }
+		return TypedActionResult.success(stack);
+	}
 
-        user.playSound(SoundEvents.ENTITY_SILVERFISH_HURT, 1.0f, 1.0f);
-        spawnBulletEntity(world, user, 5, user.getRotationVector(), damage);
-        currentAmmo--;
+	public static void spawnShootParticles(World world, Vec3d pos, Vec3d dir) {
+		Random random = world.getRandom();
 
-        stackInHand.getOrDefault(DataComponentTypes.CUSTOM_DATA, currentAmmo);
+		for (int i = 0; i < 6; i++) {
+			double spread = 0.1;
+			double offsetX = random.nextGaussian() * spread;
+			double offsetY = random.nextGaussian() * spread;
+			double offsetZ = random.nextGaussian() * spread;
 
-        return TypedActionResult.success(stackInHand);
-    }
+			Vec3d particlePos = pos.add(offsetX, offsetY, offsetZ);
+			world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, particlePos.x, particlePos.y, particlePos.z, dir.x, dir.y, dir.z);
+		}
+	}
 
+	public void reload(PlayerEntity player)
+	{}
 
-    private void spawnBulletEntity(World world, PlayerEntity user, float speed, Vec3d direction, float damage)
-    {
-        Vec3d playerLookDirection = direction.normalize();
-        double x = user.getX() + playerLookDirection.x;
-        double y = user.getEyeY() - 0.1; // Adjust the y-offset as needed
-        double z = user.getZ() + playerLookDirection.z;
+	public void consumeRound(ItemStack itemStack)
+	{}
 
-        ArrowEntity arrowEntity = new ArrowEntity(world, user, Items.ARROW.getDefaultStack(), getDefaultStack());
-        arrowEntity.setPosition(x, y, z);
-        arrowEntity.setVelocity(playerLookDirection.multiply(speed));
-        arrowEntity.setDamage(damage);
-        world.spawnEntity(arrowEntity);
-    }
+	public boolean isEmpty(ItemStack itemStack)
+	{
+		return getRoundCount(itemStack) <= 0;
+	}
+
+	public int getRoundCount(ItemStack itemStack)
+	{
+		return 0;
+	}
+
+	@Override
+	public boolean allowComponentsUpdateAnimation(PlayerEntity player, Hand hand, ItemStack oldStack, ItemStack newStack)
+	{
+		return false;
+	}
 }
+
