@@ -24,7 +24,7 @@ public class ModItems
             .recoil(0.4f))
     );
 
-    public static final GunMagazineItem TEST_MAG = registerItem("test_mag", new GunMagazineItem(new Item.Settings().maxCount(16), 30));
+    public static final GunMagazineItem TEST_MAG = registerItem("test_mag", new GunMagazineItem(new Item.Settings().maxCount(1), 30));
 
 
 

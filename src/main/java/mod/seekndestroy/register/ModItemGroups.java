@@ -18,6 +18,7 @@ public class ModItemGroups
 
                 entries.add(ModItems.TEST_ITEM);
                 entries.add(ModItems.TEST_GUN);
+                entries.add(ModItems.TEST_MAG);
 
                 entries.add(ModBlocks.TEST_BLOCK);
                 entries.add(ModBlocks.GROUND_RADAR);
