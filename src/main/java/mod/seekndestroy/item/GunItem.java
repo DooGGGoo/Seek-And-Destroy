@@ -16,8 +16,8 @@ import net.minecraft.world.World;
 
 public class GunItem extends Item implements FabricItem
 {
-	private final float recoil;
-	private final SoundEvent  fireSound;
+	protected final float recoil;
+	protected final SoundEvent  fireSound;
 
 	public GunItem(Item.Settings settings, GunConfig gunConfig)
 	{

@@ -28,8 +28,8 @@ public class GroundRadarBlockEntity extends BlockEntity
 
 	private final int scanRate = 24;
 	private final int scanRadius = 200;
-	private final float scanAngle = -30f;
-	private static final float scanElevationOffset = 1.5f;
+	private final float scanAngle = 40f;
+	private static final float scanElevationOffset = 0.33f;
 
 	public GroundRadarBlockEntity(BlockPos pos, BlockState state)
 	{
@@ -93,10 +93,13 @@ public class GroundRadarBlockEntity extends BlockEntity
 			groundRadarBlockEntity.progress = 0;
 		}
 
-		Vec3d radarDirection = MathUtils.intToDirectionVector(groundRadarBlockEntity.progress);
+		Vec3d radarDirection = new Vec3d(
+				MathUtils.intToDirectionVector(groundRadarBlockEntity.progress).getX(),
+				scanElevationOffset,
+				MathUtils.intToDirectionVector(groundRadarBlockEntity.progress).getY()
+		).normalize();
 
-		// spawn particle in search direction
-		world.addImportantParticle(ParticleTypes.FLAME, pos.getX() + 0.5f + radarDirection.getX() * 2f, pos.getY() + scanElevationOffset, pos.getZ() + 0.5f + radarDirection.getZ() * 2f, 0.0, 0.0, 0.0);
+		world.addImportantParticle(ParticleTypes.FLAME, pos.getX() + 0.5f + radarDirection.getX() * 2f, pos.getY() + radarDirection.getY(), pos.getZ() + 0.5f + radarDirection.getZ() * 2f, 0.0, 0.0, 0.0);
 
 		final Box scanBox = new Box(pos).offset(0, -20, 0)
 				.expand(groundRadarBlockEntity.scanRadius, 0, groundRadarBlockEntity.scanRadius)
@@ -109,9 +112,8 @@ public class GroundRadarBlockEntity extends BlockEntity
 			{
 				Vec3d entityPos = entity.getPos();
 				final Vec3d originPos = MathUtils.toVec3d(pos);
-				Vec3d dir = new Vec3d(radarDirection.getX(), pos.getY() + scanElevationOffset, radarDirection.getZ());
 
-				if (MathUtils.isPointInsideCone(originPos, entityPos, dir, groundRadarBlockEntity.scanRadius * 1.33f, groundRadarBlockEntity.scanAngle))
+				if (MathUtils.isPointInsideCone(originPos, entityPos, radarDirection, groundRadarBlockEntity.scanRadius * 1.33f, groundRadarBlockEntity.scanAngle))
 				{
 					if (world.isClient())
 					{
@@ -119,7 +121,7 @@ public class GroundRadarBlockEntity extends BlockEntity
 					}
 					world.addParticle(ParticleTypes.NOTE, entityPos.getX(), entityPos.getY(), entityPos.getZ(), 0.0, 0.0, 0.0);
 				}
-				System.out.println(dir + " | " + MathUtils.isPointInsideCone(originPos, entityPos, dir, groundRadarBlockEntity.scanRadius * 1.33f, groundRadarBlockEntity.scanAngle));
+				//System.out.println(dir + " | " + MathUtils.isPointInsideCone(originPos, entityPos, dir, groundRadarBlockEntity.scanRadius * 1.33f, groundRadarBlockEntity.scanAngle));
 			}
 		}
 	}
