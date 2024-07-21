@@ -1,5 +1,6 @@
 package mod.seekndestroy;
 
+import mod.seekndestroy.register.ModRenderers;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
@@ -13,6 +14,9 @@ public class SeekAndDestroyClient implements ClientModInitializer
     @Override
     public void onInitializeClient()
     {
+        ModRenderers.registerModRenderers();
+
+        // TODO: Move to separate class
         reloadKeyBind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.seekndestroy.reload",
                 InputUtil.Type.KEYSYM,

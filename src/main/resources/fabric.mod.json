@@ -18,6 +18,9 @@
 		"main": [
 			"mod.seekndestroy.SeekAndDestroy"
 		],
+		"client": [
+			"mod.seekndestroy.SeekAndDestroyClient"
+		],
 		"fabric-datagen": [
 			"mod.seekndestroy.SeekAndDestroyDataGenerator"
 		]

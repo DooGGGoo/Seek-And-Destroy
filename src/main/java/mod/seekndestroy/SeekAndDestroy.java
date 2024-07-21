@@ -20,6 +20,8 @@ public class SeekAndDestroy implements ModInitializer
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModBlockEntities.registerModBlockEntities();
+		ModEntities.registerModEntities();
+//		ModRenderers.registerModRenderers(); // See client class
 
 		LOGGER.info("Hello Fabric world!");
 	}
