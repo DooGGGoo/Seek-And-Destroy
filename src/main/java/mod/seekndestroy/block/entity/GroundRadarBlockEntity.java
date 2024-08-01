@@ -96,7 +96,7 @@ public class GroundRadarBlockEntity extends BlockEntity
 		Vec3d radarDirection = new Vec3d(
 				MathUtils.intToDirectionVector(groundRadarBlockEntity.progress).getX(),
 				scanElevationOffset,
-				MathUtils.intToDirectionVector(groundRadarBlockEntity.progress).getY()
+				MathUtils.intToDirectionVector(groundRadarBlockEntity.progress).getZ()
 		).normalize();
 
 		world.addImportantParticle(ParticleTypes.FLAME, pos.getX() + 0.5f + radarDirection.getX() * 2f, pos.getY() + radarDirection.getY(), pos.getZ() + 0.5f + radarDirection.getZ() * 2f, 0.0, 0.0, 0.0);
